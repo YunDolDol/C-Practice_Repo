@@ -38,8 +38,8 @@ public:
 };
 
 CircleManager::CircleManager(int size) {
-	p = new Circle[size];
-	this->size = size;
+	p = new Circle[size]; // 여기서 실수. Circle *p = new Circle[size]로 했었는데 되긴 되는데 뭔가 이상함.
+	this->size = size; // 여기서 실수. 받는 인자가 객체 Circle의 name으로 들어가야 하기 때문에 this 포인터를 써야 했었음. 이 부분은 아예 놓침.
 	int radius; string name;
 
 	for (int i = 0; i < size; i++) {
@@ -49,19 +49,18 @@ CircleManager::CircleManager(int size) {
 	}
 }
 
-CircleManager::~CircleManager() {
+CircleManager::~CircleManager() { // 여기서 실수. 소멸자는 아예 몰라서 지웠는데 다시 만들었음.
 	delete[] p;
 }
 
 void CircleManager::searchByName() {
-	string naming;
+	string naming; // 여기서 실수, Circle의 name을 변수로 썼었는데 겹쳐서 이상하게 돌아갔었음. naming으로 바꾸니 바로 됨.
 	cout << "검색하고자 하는 원의 이름 >> ";
 	cin >> naming;
 
 	for (int i = 0; i < size; i++) {
 		if (p[i].getName() == naming) {
 			cout << naming << "의 면적은 " << p[i].getArea() << endl;
-			break;
 		}
 	}
 }
@@ -86,7 +85,6 @@ int main() {
 	cin >> size; // 원의 개수 입력받기
 
 	CircleManager CircleManager(size);
-	CircleManager.searchByName();
-	CircleManager.searchByArea();
-
+	CircleManager.searchByName(); // 여기서 실수. 그냥 단순히 void searchByName(); 이렇게 했었음. 그래서 바로 끝났나 봄.
+	CircleManager.searchByArea(); // 여기서 실수. 그냥 단순히 void searchByArea(); 이렇게 했었음. 그래서 바로 끝났나 봄.
 }
